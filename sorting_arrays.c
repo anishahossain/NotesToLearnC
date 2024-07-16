@@ -1,3 +1,4 @@
+//good example to learn Sorting using pinters!
 #include <stdio.h>
 #include <stdbool.h>
 
