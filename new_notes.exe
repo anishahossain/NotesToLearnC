@@ -1,0 +1,246 @@
+FUNCTIONS
+
+// functions are created outside of the main function seperately
+// format - 
+void function_name(variable){code}
+
+// functioon  example
+void birthday(){
+    printf("Happy birthday to you!\n");
+    printf("Happy birthday to you!\n");
+    printf("Happy birthday dear person!\n");
+    printf("Happy birthday to you!");
+}
+
+int main()
+{
+    // call to funtion is inside main function
+    birthday();
+    return 0;
+}
+
+ARGUMENTS AND PARAMETERS
+
+void birthday(char name[], int age) // variables passed to function declaration are parameters
+{
+     /* functions cannot see inside other functions
+    so our main function needs to make this function aware of the variables 
+    through arguments
+    */
+    printf("Happy birthday to you dear %s!\n", name);
+    printf("You are %d years old\n", age);
+}
+
+int main()
+{
+
+    char name[] = "Anisha";
+    int age = 19;
+
+    birthday(name, age); // variables passed inside call to function are arguments
+    // the arguments and parameters do not have to have the same name 
+    // imp is the order and data type
+    return 0;
+}
+
+RETURN STATEMENT
+
+double square(double x) // since this function is returning a double we put data type of function to the data type it is returniing
+// unless the arguments are of different datatypes then we just precede function declaration by void
+{
+    double result = x * x;
+    return result;
+    // instead of defining a local variable we could also define this as 
+    // return x * x
+}
+
+int main(){
+    double x = square(3.14); // call to function 
+    printf("%lf", x);
+
+    return 0;
+}
+
+TERNARY OPERATORS
+// shortcut to if/else when assigning/returning a value
+// return (condition) ? value if true : value if false
+
+int findMax(int x, int y)
+{
+    return (x > y) ? x : y; // return (condition) ? value if true : value if false
+    // in  this example the ternery statement in terms of if else statement would mean 
+    if x > y then return x else return y
+}
+
+int main(){
+
+    int max = findMax(3, 4); // call to function 
+    printf("%d", max);
+
+    return 0;
+}
+
+FUNCTION PROTOTYPE
+
+it is the fucntion declaration without a body before the main() function (using a void function)
+then we later define the function after the main  function 
+ensures that calls to a function are made with the correct arguments
+
+- important notes
+many c compilers do not check for parameter matching
+missing arguments will  result in unexpected behaviour (but code will still run)
+function prototype will cause compiler to flag an error if arguments are missing and helps in debugging
+(also helps in debugging)
+
+
+STRING FUNCTIONS
+
+header file - #include <string.h>
+some basic common string fucntions - 
+1. strlwr(variable); - converts string to lowercase
+2. strupr(variable); - converts string to uppercase
+3. strcat(variable1, variable2); - appends string (variable2) at end of variable1
+4. strncat(var1, var2, n); - appends given (n) amount of characters from string of var2 to var1
+5. strcpy(var1, var2); - copies var2 to var1 (removes contents of var1)
+6. strncpy(var1, var2, n); - copies given (n) amount of characters from string of var2 to var1 (overwrites first n characters of var1)
+
+7. strset(var, 'n'); - sets all characters of var to given character
+8. strnset(var, 'x', n); - sets first n characters of var to given character
+9. strrev(var) - reverses a string
+
+a. int result = strlen(var); - returns string length as int
+b. int result = strcmp(var1, var2); - compares all characters of he 2 variables inside parathesis (returns 0 if they all match, if they r diff they will return a number beside 0)
+c. int result = strncmp(var1, var2, n); - compares first n characters (from the left side) between the strings (0 if they mmatch)
+d. int result = strcmpi(var1, var2); // does the exact same thing as strcmp but is  not case sensitive
+e. int result = strncmp(var1, var2, n); // does the exact same thing as strncmp but is  not case sensitive
+
+FOR LOOPS
+- repeats a section of code a limited amount of times
+ //for(conditions){code}
+    for(int i = 1; i <= 10; i++) // we have to declare n index here inside paranthesis (i is short for index)
+    // it is similar to for loops python using i (or any name)
+    // iterations are interger numbers hence common practice is to use int i when describing oop conditions
+    // (condition of where it starts; condition for how long it runs; contion for how i value changes after every loop)
+    {
+        printf("%d\n", i);
+    }
+** for(start condition; end condition; change of values)
+
+WHILE LOOPS 
+- repeats code possible umlimited times WHILE some conditions remain true
+- it might also not execute at all depending on the conditions
+
+char name[25];
+printf("WWhat is your name?\n");
+fgets(name, 25, stdin);
+name[strlen(name) - 1] = '\0';
+
+// while(condition){code excuted for when condition is true}
+while(strlen(name) == 0) // while loop might not execute if condition is false from start
+{
+    printf("You did not enter your name!\n");
+    printf("What is your name?\n");
+    fgets(name, 25, stdin);
+    name[strlen(name) - 1] = '\0';
+};
+printf("Hello %s", name);
+
+DO WHILE LOOP 
+- variation of a while loop 
+- always executes a block of code once first and THEN checks the condition
+
+int number = 0;
+int sum = 0;
+
+// since number is already set 0, a while loop will never excetue so 
+// a do while loop needs to be used 
+// format - do{code}while(condition);
+do{
+    printf("Enter a number above 0: \n");
+    scanf("%d", &number);
+    if (number > 0)
+    {
+        sum += number;
+    }
+}while(number > 0);
+printf("sum: %d", sum);
+
+NESTED LOOPS
+- a loop inside another loop
+int main(){
+    
+int rows; 
+int columns;
+char sym;
+
+printf("Enter number of rows: ");
+scanf("%d", &rows);
+
+// since printf and scanf are used together (due to using scanf) next pfrintf execution is on a new line
+printf("Enter number of columns: ");
+scanf("%d", &columns); // the imput command has a newline buffer
+
+// to get rid of the buffer we can just use a whitespace in front of %c in scanf
+printf("Enter a symbol: ");
+scanf(" %c", &sym); 
+
+for(int i = 1; i <= rows; i++) // outer loop for rows and inner oop for columns
+{
+    for(int j = 1; j <= columns; j++){
+        printf("%c", sym);
+    }
+    printf("\n");
+    // for each row j will be printed and for a new row it will move to a newline
+} 
+ // first iteration of outer loop executes first and then then all the iterations of inner loop and so on */
+
+    return 0;
+}
+
+BREAK VS CONTINUE
+- continue skips rest of code and forces the next iteration of the loop
+- break exits a loop/switch
+
+e.g 
+for(int i = 1; i <= 20; i ++)
+    {
+        if(i == 13){
+            continue;
+            // if reak was used here then the loop would be stopped at 12
+        }
+        printf("%d\n", i);
+    }
+return 0;
+
+ARRAY
+- data structure that can store many values of the same data type
+
+// datatype variablbe_name[] = {multiple values seperated by a comma}
+double prices[] = {5.0, 10.0, 15.0, 20.0};
+char name[] = "Anisha"; // a string is just an array of characters
+
+int numbers[3]; // we can also just set the number of items we are gonna assign the array and assign them later
+numbers[0] = 1;
+numbers[1] = 2;
+numbers[2] = 3;
+// we can also do both together double prices[4] = {5.0, 10.0, 15.0, 20.0};
+
+
+// array elements are accessed by index numbers inside [] square brackets
+printf("%.2lf", prices[3]);
+
+ITERATING OVER AN ARRAY
+double prices[] = {5.0, 10.0, 15.0, 20.0, 25.0, 30.0};
+
+// it is better to set end condition using size of array
+//cso that we do not need to update the conditions eerytime there is a cange to the array
+printf("%d bytes\n", sizeof(prices)); 
+// sizeof() operator tells us size of value assigned to the variable in bytes
+// size of a single element is sizeof(variable)/sieof(variable[i])
+
+
+for(int i = 0; i < sizeof(prices)/sizeof(prices[i]); i++){
+    printf("%.1lf\n", prices[i]);
+};
+
+

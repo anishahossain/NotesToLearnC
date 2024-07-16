@@ -1,0 +1,202 @@
+2D ARRAYS
+- an array where each element is an entire array (matrix, grid or table of data)
+// 2D arrays - datatype array_name[][] = {{},{}} (2 square brackets)
+// we have to specify a max size for elements in each array 
+// and setting max size for the whole array is optional
+int numbers[][3] = {
+    {1, 2, 3},
+    {4, 5, 6}
+    };
+// accessing a certain element through index - array[index number of array][index of element in array]
+// another way of assigning values 
+
+int numbers2[2][2];
+numbers2[0][0] = 1;
+numbers2[0][1] = 2;
+numbers2[1][0] = 3;
+numbers2[1][1] = 4;
+// numers2[0] - is he whole first row
+
+int rows = sizeof(numbers2)/sizeof(numbers2[0]); // no. of rows - no. of arrays in 2D arrays (firsts square bracket)
+int columns = sizeof(numbers2[0])/sizeof(numbers2[0][0]); //no. of columns - no of elements inside each array (second square bracket)
+
+printf("\nRows: %d", rows);
+printf("\nColumns: %d\n", columns);
+// 2D arrays are accessed mostly through nested loops
+
+for(int i = 0; i < rows; i ++)
+{
+    for(int j = 0; j < columns; j++)
+    {
+        printf("%d ", numbers2[i][j]);
+    }
+    printf("\n"); // new line after every inner loop iteration 
+}
+
+ARRAY OF STRINGS 
+har cars[][10] = {"Mustang", "Corvette", "Audi"};
+    // here each word is an array (second square bracket sets in a way max no. letters each string array can have)
+    // the words cannot be dirscly assigned a new value
+
+    //one way of assigning a new value is using strcpy() method
+    strcpy(cars[0], "Tesla"); //str method where cars[0] (first array) is replaced by "Tesla"
+
+    for(int i = 0; i < sizeof(cars)/sizeof(cars[0]); i++)
+    {
+        printf("%s\n", cars[i]);
+    }
+
+SWAP VALUES OF 2 variables
+char x = 'X';
+    char y = 'Y';
+// to swap valus we could introduce a 3rd variable 
+    char temp;
+
+    temp = x; // temp is assinged X
+    x = y; // x is assigned Y
+    y = temp; // y is assigned X
+    // x = Y, y = X
+
+// it is a diff process fro strings - 
+char a[] = "Anisha";
+char b[] = "Hossain";
+char temp_string[15];
+// we use strcpy() operator
+
+strcpy(temp_string, a);
+strcpy(a, b);
+strcpy(b, temp_string);
+
+char x[15] = "Anisha";
+char b[15] = "Meg";
+char temp_string[15];
+
+strcpy(temp_string, x);
+strcpy(x, b); 
+// when second string is smaller than first string it results in unexpected behavior when using strcpy()
+// to solve this issue we can make all the char arrays the same size (all are assigned 15 in  square brackets)
+strcpy(b, temp_string);
+
+STRUCTS
+- short for structures (collected of related variables)
+they can be different data types listed under one name in a block of memory
+Very similar to classes (but no methods)
+
+//structs are created outside of main function - IMPORTANT
+// format - struct Structname {code}; (have to use semi colon after)
+struct Player
+{
+    char name[12];
+    int score;
+};
+
+int main(){
+
+    struct Player player1; // struct StructureName variable name
+    struct Player player2;
+
+    strcpy(player1.name, "Anisha"); // dot is a member access operator
+    // if we are not working with a string of characters (array) we can access the variables directly
+    // when working with arrays we alyways use strcpy to access or change values
+    player1.score = 4;
+
+    strcpy(player2.name, "Megha"); 
+    player2.score = 5;
+
+    //they can be displayed using printf
+    printf("%s\n", player1.name);
+    printf("%d\n", player1.score);
+
+    printf("%s\n", player2.name);
+    printf("%d\n", player2.score);
+
+    return o;}
+
+    ARRAY OF STRUCTS
+    
+    struct Student{
+    char name[12];
+    float gpa;};
+
+int main(){
+    struct Student student1 = {"Anisha", 4.0};
+    struct Student student2 = {"Sophia", 3.8};
+    struct Student student3 = {"Megha", 3.93};
+    struct Student student4 = {"Bob", 2.7};
+
+    struct Student students[] = {student1, student2, student3, student4};
+    // array of structs
+
+    // accessing the dot operator values of structs using for loop 
+    for(int i = 0; i < sizeof(students)/sizeof(students[0]); i++)
+    {
+        printf("Student Name: %s\n", students[i].name); // displays their name
+        // to not forget to use dot operator
+        printf("GPA: %.2f\n", students[i].gpa);
+    }
+return 0;}
+
+
+ENUMS
+- (short for numerations) user defined type of named integer identifiers
+(helps to make program more readable)
+
+// enums can be created both inside or outside of main function
+// format - enum Name{Constant1, Constant2, So_on}; (enums are constants)
+enum Day{Sun = 1, Mon = 2, Tue = 3, Wed = 4, Thu = 5, Fri = 6, Sat= 7};
+// by default the first constant is 0, second is 1 (like index) but we can also give them a unique value
+
+int main(){
+ // call format - enum variable_name = Constant;
+    enum Day today = Sun;
+    printf("%d\n", today); // enums are treated as integers not strings
+
+if(today == Sun || today == Sat) // we can either use the integer or enum
+{
+    printf("Today is a weekend! party time!");
+}
+else{printf("I have work today :(");}
+return 0;
+}
+
+RANDOM NUMBERS
+- pseudo random numbers = a set of values or elements that are statitically random
+#include <time.h> // incluse header for using random numbers
+
+int main(){
+
+srand(time(0)); // using current time as a seed for random numbers
+// if we do not use a random seed the code will generate the same numbers over and over again
+
+int number1 = (rand() % 6 + 1); // this gives a random number between 0 and 6
+// as the remainder will be between 1 - 5 (modulus)
+// rand() % n - using n number after modulus we get numbers between 1 to n-1
+printf("%d", number1);
+return 0;
+}
+
+MEMORY ADDRESS
+memory - an array of bytes within RAM (like a street with a bunch of different houses)
+memory block - a single unit (byte), within memory used to hold some value (like a person)
+memory address  - address of where a memory block islocated (the house address)
+in order to find certain data memory addresses are important
+int main(){
+
+    char a = 'X';
+    char b = 'Y';
+    char c = 'Z';
+    // data type short uses 2 bytes of memory
+
+    printf("%d bytes\n", sizeof(a));
+    printf("%d bytes\n", sizeof(b));
+    printf("%d bytes\n", sizeof(c));
+    
+    printf("%p\n", &a); 
+    // format specifier for memory addresses is %p, and we need to put & before variable
+    printf("%p\n", &b);
+    printf("%p\n", &c);
+
+// the memory addresses are in hexadecimals - 0-9 + A-F  
+// here char a has memory address 0061FF1F   
+return 0;
+}
